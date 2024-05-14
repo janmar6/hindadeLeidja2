@@ -1,3 +1,5 @@
+package org.example.oopprojekt2;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,7 +32,7 @@ public class Kasutaja {
         // Iga soovitud toote otsimine
         for (String soovitudToode : soovitudTooted) {
             // Loob iga kaabitseja jaoks CompletableFuture
-            List<CompletableFuture<ArrayList<Toode>>> kaabitseFutures = kaabitsejad.stream()
+            List<CompletableFuture<ArrayList<Toode>>> kaabitseFutures = new ArrayList<>(kaabitsejad.stream()
                     .map(kaabitseja -> CompletableFuture.supplyAsync(() -> {
                         try {
                             return kaabitseja.kaabitse(soovitudToode);
@@ -38,7 +40,9 @@ public class Kasutaja {
                             throw new RuntimeException(e);
                         }
                     }))
-                    .collect(Collectors.toList()).reversed();
+                    .toList());
+
+            Collections.reverse(kaabitseFutures);
 
             // Ühendab kõigi CompletableFuture tulemused
             CompletableFuture<Void> allFutures = CompletableFuture.allOf(
@@ -76,14 +80,14 @@ public class Kasutaja {
         // Lisab CompletableFuture iga kaabitse meetodi kutse jaoks
         CompletableFuture<List<Toode>> rimiFuture = CompletableFuture.supplyAsync(() -> {
             try {
-                return new Rimi().kaabitse(soovitudTooted.getFirst());
+                return new Rimi().kaabitse(soovitudTooted.get(0));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }, executor);
         CompletableFuture<List<Toode>> coopFuture = CompletableFuture.supplyAsync(() -> {
             try {
-                return new Coop().kaabitse(soovitudTooted.getFirst());
+                return new Coop().kaabitse(soovitudTooted.get(0));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

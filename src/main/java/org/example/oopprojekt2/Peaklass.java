@@ -1,6 +1,7 @@
+package org.example.oopprojekt2;
+
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.sql.SQLOutput;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -66,7 +67,7 @@ public class Peaklass {
         valjastaTooted(tulemused, kasutaja);
     }
     private static void valjastaTooted(ArrayList<Toode> tooted, Kasutaja kasutaja) {
-        if (tooted.isEmpty() || tooted.getFirst() == null) {
+        if (tooted.isEmpty() || tooted.get(0) == null) {
             System.out.println("Kahjuks ei leidnud midagi.");
             return;
         }

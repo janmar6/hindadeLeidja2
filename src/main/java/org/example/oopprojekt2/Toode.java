@@ -1,3 +1,5 @@
+package org.example.oopprojekt2;
+
 class Toode implements Comparable<Toode>{
     private String name;
     private double price;
