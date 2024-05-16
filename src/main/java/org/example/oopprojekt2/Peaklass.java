@@ -1,5 +1,9 @@
 package org.example.oopprojekt2;
 
+import org.openqa.selenium.SessionNotCreatedException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.*;

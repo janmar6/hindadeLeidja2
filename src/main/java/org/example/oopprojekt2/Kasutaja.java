@@ -21,7 +21,10 @@ public class Kasutaja {
     public Kasutaja(ArrayList<String> soovitudTooted) {
         this.minKoguSum = 0.0;
         this.soovitudTooted = soovitudTooted;
-        this.kaabitsejad = new ArrayList<>(Arrays.asList(new Coop(), new Rimi()));
+        this.kaabitsejad = new ArrayList<>();
+        kaabitsejad.add(new Prisma());
+        kaabitsejad.add(new Rimi());
+        kaabitsejad.add(new Coop());
     }
 
     // Mitme toote samaaegne otsimine nt. kartul(rimist ja coopist), majonees(rimist
@@ -93,8 +96,16 @@ public class Kasutaja {
             }
         }, executor);
 
+        CompletableFuture<List<Toode>> prismaFuture = CompletableFuture.supplyAsync(() -> {
+            try {
+                return new Prisma().kaabitse(soovitudTooted.get(0));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }, executor);
+
         // Ühendab kõigi CompletableFuture tulemused
-        CompletableFuture<Void> allFutures = CompletableFuture.allOf(rimiFuture, coopFuture);
+        CompletableFuture<Void> allFutures = CompletableFuture.allOf(rimiFuture, coopFuture, prismaFuture);
 
         // Ootab kõigi CompletableFuture lõppemist
         allFutures.get();
@@ -102,11 +113,13 @@ public class Kasutaja {
         // Hangib tulemused
         List<Toode> rimiTooted = rimiFuture.get();
         List<Toode> coopTooted = coopFuture.get();
+        List<Toode> prismaTooted = prismaFuture.get();
 
         // Ühendab tulemused mõlemast allikast
         ArrayList<Toode> koikTooted = new ArrayList<>();
         koikTooted.addAll(rimiTooted);
         koikTooted.addAll(coopTooted);
+        koikTooted.addAll(prismaTooted);
 
         // Sorteerib listi
         koikTooted.sort(Toode::compareTo);
