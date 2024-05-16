@@ -2,16 +2,20 @@
 Nimed: Jan Markus Salum, Andry Avamägi
 
 ## Projekti Põhjalik Kirjeldus
-Programmi eesmärk on leida parimad hinnad erinevatele toidutoodetele, kasutades otsingusõnu ning kaabitsedes Rimi ja Coopi poest toodete nimed, hinnad ja kilohinnad asünkroonselt. Seejärel sorteerib programm tooted kilohinna järgi ning sõltuvalt kasutaja sisendist väljastab kõik erinevad tooted, mis sobisid otsingusõnaga, või iga toote odavaima variandi. Vastused esitatakse ilusti visuaalselt ekraanile.
 
-**Kasutusjuhis:** Pärast programmi käivitamist sisestage kasutajasisendisse:
-- Üks toode (näiteks "kodujuust") -> väljastab kõik kodujuustud Rimi ja Coopi sortimendist ning sorteerib need kilohinna järgi.
-- Mitu toodet, mis on eraldatud koma või semikooloniga (näiteks "kurk, tomat, pelmeenid, kartulikaste") -> väljastab iga toote odavaima variandi (kilogrammi hinna järgi).
+Tegemist on sama projektiga, mis rühmatöö 1 valmistasime, aga lisasime graafilise liidese, faili kirjutamise ja Prisma e-poest lugemise.
+Programmi eesmärk on otsida ja kuvada kasutajale kõige odavamad versioonid toodetest, mida ta soovib. Programm otsib paralleelselt st mitmelõimeliselt COOP, Rimi ja Prisma e-poodidest kõik sobivad tooted, sorteerib ja kuvab kasutajale kolmest poest kõige odavama toote - nii iga toote kohta.
+
+
+Kasutaja käivitab HelloApplication.java ja hakkab avanenud aknas otsinguribale tooteid sisestama (nt. Kurk, piim, juust jne..) ning iga Enter klahvi vajutusega lisatakse see toode listi. Kui kasutaja on oma listiga rahul siis ta saab vajutada search, mille peale hakkab programm tooteid otsima.
+Tulemuseks kuvatakse aknasse kõik kõige odavamad tooted ning kui kasutaja vajutab toote peale, siis kuvatakse kõrvalaknas sellest tootest kõik võimalikud variandid.
 
 ## Klassid
 
-### Peaklass
-- **Eesmärk:** Peaklass, mille kasutaja käivitab.
+### HelloApplication 
+
+[//]: # (TODO)
+
 
 ### Abstraktne Klass Kaabitseja
 - **Eesmärk:** Abstraktne klass, mida coop ja rimi klass extendivad ja mis sisaldab funktsiooni `kaabitse`, mis tagastab ArrayListi toodetest vastavalt otsingusõnele.
@@ -22,39 +26,39 @@ Programmi eesmärk on leida parimad hinnad erinevatele toidutoodetele, kasutades
 ### Klass Rimi
 - **Eesmärk:** Extendib Kaabitsejat, kaabitsedes Rimi veebipoest.
 
+### Klass Prisma
+- **Eesmärk:** Extendib Kaabitsejat, kaabitsedes Rimi veebipoest.
+
 ### Klass Toode
 - **Eesmärk:** Klass toote kohta, mis sisaldab poe nime, toote hinda, toote nime ja kilohinda.
 
 ### Klass Kasutaja
-- **Eesmärk:** Klass kasutaja kohta, mis sisaldab ArrayListi soovitud toodetest ja poode, kus kasutaja käib.
+- **Eesmärk:** Klass kasutaja kohta, mis sisaldab ArrayListi soovitud toodetest ja poode, kus kasutaja käib.### Klass Kasutaja
 
-## Projekti Tegemise Protsess
-1. Mõtlesime välja ülesande struktuuri.
-2. Kirjutasime vajalikud klassid ja meetodid.
-3. Tegime veebikaabitsemise Coopi ja Rimi jaoks, kasutades JSOUPi.
-4. Testisime loodud klasse ja nende kaabitsejaid.
-5. Salvestasime tulemused listi ja sorteerisime tooted hinna alusel.
-6. Rakendasime asünkroonsuse, et kiirendada protsessi.
-7. Viimaks küsisime kasutajalt sisendit ja otsisime vastavate toodete kõige soodsamad variandid.
+### meetodite kohta info klasside sees kommentaaride kujul
 
-## Rühmaliikmete Panus ja Ajakulu
-Kokku kulus aega umbes 10 tundi. Tööjaotus oli järgmine:
-- Koos mõtlesime struktuuri ja dokumenteerisime.
-- Andry tegi veebikaabitsemise Coopi ja Rimi jaoks, kasutades JSOUPi.
-- Koos kirjutasime vajalikud meetodid ja klassid.
-- Jan tegi kasutajaliidese ja asünkroonsuse.
+## Projekti Tegemise Protsess, Rühmaliikmete Panus ja Ajakulu
+
+### Tegemist eelmise projekti jätkuga. Alguse kohta lugeda eelmise projekti readme failist.
+Jan Markus Salum: 
+
+
+Andry Avamägi:
+Selles etapis oli minu ülesandeks saada otsingutulemused prisma e-poest. Esimesel korral see meil ei õnnestunud, kuna iga päringuga tagastati meile javascript - sealt oli väga raske / võimatu midagi välja lugeda. Minu ülesandeks oli välja mõelda viis, kuidas see javascript tagaplaanil ära renderida ja tulemusest info välja lugeda. Leidsin sellise teegi Selenium, mis võimaldas täpselt seda - tegemist vist eelkõige veebitestide jaoks kirjutatud teegiga, kuid see sobis minu ülesande jaoks. Tulemusena sain valmis programmi, mis iga funktsiooni välja kutsega avab tagaplaanil chromekliendi, kust kutsutakse välja sobiv päring - nüüd see klient käitub brauserina ja renderdab javascripti ning selle tulemusest  oli väga lihtne otsida välja kõik vajalik info ja salvestada see Toodete klassidena. Kokku kulus mul umbes 6h, kuna Seleniumi rakendamisel ilmnesid errori, millest algul midagi aru ei saanud. 
+
+
 
 ## Tegemise Mured
 Projekti kasutajasõbralikuks tööks oli tähtis see, et päringutele saadakse kiirelt vastused. Selle saavutamiseks pidime kasutama java asünkroonseid võimalusi. Tehisintellekti abiga saime selle tööle, kuid see võttis ikkagi aega ja katsetamist.
 Suuremaks mureks kui asünkroonsus, osutus aga see, et osadel veebipoodidel ei ole aga hindasid/tooteid html lehel, seega saime esialgu tööle ainult Coopi ja Rimi. Näiteks Prisma e-pood näitab toote hinda vaid alles siis, kui oled selle oma korvi lisanud.
 
 ## Hinnang Lõpptulemusele
-Oleme rahul oma tööga ning meile tundub, et sellest oleks kasu paljudele inimestele. Kui programmi viimistleda, rohkeim poode lisada ning teha ligipääsetavamaks, siis oleks see päris lahe projekt.
+Arvame, et lõpuks sai valmis väga äge projekt ning oleme oma tulemusega rahul. Tulevikus on mõistlik see ümber kirjutada veebirakenduseks ning tulemusi otsida ka Selveri veebipoest.
 
 ## Testimine
-Peale iga suurema funktsionaalsuse rakendamist, katsetasime peaklassis, kas kõik osad koos töötavad enne, kui läksime edasi.
-Nt. Tegime coopi kaabitseja -> proovisime kas saame tooted, kus nime sees on otsingi.
-Tegime Rimi kaabitseja -> proovisime samamoodi.
+Peale iga suurema funktsionaalsuse rakendamist, katsetasime klasse, kas kõik osad koos töötavad enne, kui läksime edasi.
+Nt. Tegime coopi kaabitseja -> proovisime kas saame tooted, kus nime sees on otsing. Prisma ja Rimiga samamoodi.
 Tulemused iga otsingu pealt koondasime ühte listi. Sorteerisime. Uurisime kas saime oodatud tulemuse.
-Proovisime mitme otsingusõna pealt nt. Hapukurk, majonees… (iga otsingu pealt loodi eraldi ArrayList toodetest)
-Rakendasime asünkroonsuse -> veendusime, et otsing läheb kiiremaks
+
+
+[//]: # (TODO)
