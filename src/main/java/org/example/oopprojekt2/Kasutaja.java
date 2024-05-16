@@ -26,11 +26,11 @@ public class Kasutaja {
     }
 
     
-// Function to return a map of products for each query
+// Tagastab Mapi, kus key on toode ja value kõik versioonid sellest tootest
     public Map<String, List<Toode>> getProducts() throws ExecutionException, InterruptedException {
         Map<String, CompletableFuture<List<Toode>>> queryFutures = new HashMap<>();
 
-        // Create a CompletableFuture for each search query and each kaabitseja
+        // iga kaabitseja ja otsingu jaoks oma comparatableFuture
         for (String query : soovitudTooted) {
             List<CompletableFuture<List<Toode>>> futures = new ArrayList<>();
             for (Kaabitseja kaabitseja : kaabitsejad) {
@@ -43,7 +43,7 @@ public class Kasutaja {
                 });
                 futures.add(future);
             }
-            // Combine futures for the same query
+            // ühendame kõik toodete kaabitsejate comparatablefuterid ja saame tulemuse
             CompletableFuture<List<Toode>> combinedFuture = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
                     .thenApply(v -> futures.stream()
                             .map(CompletableFuture::join)
@@ -53,7 +53,7 @@ public class Kasutaja {
             queryFutures.put(query, combinedFuture);
         }
 
-        // Wait for all query futures to complete and collect the results into a map
+        // ootame kõik lõimed ära ja lisame streamiga mapi
         return queryFutures.entrySet().stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, entry -> {
                     try {
@@ -69,8 +69,7 @@ public class Kasutaja {
     
     
     
-    // Mitme toote samaaegne otsimine nt. kartul(rimist ja coopist), majonees(rimist
-    // ja coopist)
+    // Mitme toote samaaegne otsimine nt. kartul(rimist, coopist ja prismast), majonees(rimist,coopist ja prismast)
     public ArrayList<Toode> getKoigeOdavamad() throws IOException, ExecutionException, InterruptedException {
         List<CompletableFuture<Toode>> futureToodes = new ArrayList<>();
 

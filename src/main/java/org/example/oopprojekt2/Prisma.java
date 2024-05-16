@@ -23,6 +23,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 
+//Selle klassiga otsitakse kõik soovitud tooted Prisma e-poest
+
 public class Prisma extends Kaabitseja{
     @Override
     public ArrayList<Toode> kaabitse(String tooteNimi) throws IOException {
@@ -30,6 +32,10 @@ public class Prisma extends Kaabitseja{
         ArrayList<Toode> tooted = new ArrayList<>();
 
         try{
+            //Prismast saab otsida vaid tingimusel, kui kasutajal on arvutis chrome ja selle kõige viimane versioon
+            //programm avab tagaplaanil chromeclienti ja saadab päringu vajalikule URL'ile. Nüüd kuna browser suudab
+            //renderida javascripti, mis päringu response annab, siis saab info sobivale kujule ja on võīmalik leida
+            //sobivad tooted.
             System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
 
             ChromeOptions options = new ChromeOptions();
@@ -45,6 +51,7 @@ public class Prisma extends Kaabitseja{
             List<WebElement> elements = driver.findElements(By.className("js-shelf-item"));
 
 
+            //vajalikke html elementide seest info saamine
             for(WebElement element : elements) {
                 String nimi = element.findElement(By.className("name")).getText();
                 String hindStringina = element.findElement(By.className("js-info-price")).getText().split("\n")[0];
@@ -59,6 +66,7 @@ public class Prisma extends Kaabitseja{
                 double hind = Double.parseDouble(hindStringina.split(" ")[0] + "." + hindStringina.split(" ")[1]);
 
                 double kilohind = hind;
+                //juhul kui kilohinda pole
                 if(kilohindStringina.length() != 0){
                     kilohind = Double.parseDouble(kilohindStringina.split(" ")[0].replace(",","."));
                 }
@@ -71,7 +79,7 @@ public class Prisma extends Kaabitseja{
 
 
         }  catch (SessionNotCreatedException ignored) {
-            System.out.println("Detected invalid ChromeDriver version for installed version of Chrome");
+            System.out.println("Kasutajal pole viimast chrome versiooni");
             return tooted;
         }
 
