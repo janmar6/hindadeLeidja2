@@ -60,15 +60,18 @@ public class Peaklass {
         printdots();
 
         ArrayList<Toode> tulemused;
+        Map<String, List<Toode>> tulemusedx = null;
         // Väljastame ekraanile kõik tulemused või mitme toote puhul iga toote kõige odavama.
         if (tooteOtsing.contains(",") || tooteOtsing.contains(";")) {
-            tulemused = kasutaja.getKoigeOdavamad();
+            tulemusedx = kasutaja.getProducts();
+//            tulemused = kasutaja.getKoigeOdavamad();
         } else {
             tulemused = kasutaja.getKoikTootedOfFirst();
         }
         // Paneb executori kinni -> lõpetab punktide printimise.
         executor.shutdownNow();
-        valjastaTooted(tulemused, kasutaja);
+        System.out.println(tulemusedx);
+//        valjastaTooted(tulemused, kasutaja);
     }
     private static void valjastaTooted(ArrayList<Toode> tooted, Kasutaja kasutaja) {
         if (tooted.isEmpty() || tooted.get(0) == null) {

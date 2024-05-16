@@ -1,10 +1,8 @@
 package org.example.oopprojekt2;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.lang.reflect.Array;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
@@ -27,6 +25,50 @@ public class Kasutaja {
         kaabitsejad.add(new Coop());
     }
 
+    
+// Function to return a map of products for each query
+    public Map<String, List<Toode>> getProducts() throws ExecutionException, InterruptedException {
+        Map<String, CompletableFuture<List<Toode>>> queryFutures = new HashMap<>();
+
+        // Create a CompletableFuture for each search query and each kaabitseja
+        for (String query : soovitudTooted) {
+            List<CompletableFuture<List<Toode>>> futures = new ArrayList<>();
+            for (Kaabitseja kaabitseja : kaabitsejad) {
+                CompletableFuture<List<Toode>> future = CompletableFuture.supplyAsync(() -> {
+                    try {
+                        return kaabitseja.kaabitse(query);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+                futures.add(future);
+            }
+            // Combine futures for the same query
+            CompletableFuture<List<Toode>> combinedFuture = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
+                    .thenApply(v -> futures.stream()
+                            .map(CompletableFuture::join)
+                            .flatMap(List::stream)
+                            .sorted(Toode::compareTo)
+                            .collect(Collectors.toList()));
+            queryFutures.put(query, combinedFuture);
+        }
+
+        // Wait for all query futures to complete and collect the results into a map
+        return queryFutures.entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, entry -> {
+                    try {
+                        return entry.getValue().get();
+                    } catch (InterruptedException | ExecutionException e) {
+                        throw new RuntimeException(e);
+                    }
+                }));
+    }    
+    
+    
+    
+    
+    
+    
     // Mitme toote samaaegne otsimine nt. kartul(rimist ja coopist), majonees(rimist
     // ja coopist)
     public ArrayList<Toode> getKoigeOdavamad() throws IOException, ExecutionException, InterruptedException {

@@ -53,11 +53,9 @@ class Toode implements Comparable<Toode>{
 
     @Override
     public String toString() {
-        return "Toode{" +
-                "name='" + name + '\'' +
-                ", price=" + price +
-                ", kiloHind=" + kiloHind +
-                ", pood='" + pood + '\'' +
-                '}';
+        return name +
+                ", " + price +
+                " (" + kiloHind +
+                ") " + pood;
     }
 }
