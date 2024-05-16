@@ -13,9 +13,7 @@ Tulemuseks kuvatakse aknasse kõik kõige odavamad tooted ning kui kasutaja vaju
 ## Klassid
 
 ### HelloApplication 
-
-[//]: # (TODO)
-
+- **Eesmärk:** Peaklass, mis jooksutab ja tegeleb JavaFX programmiga.
 
 ### Abstraktne Klass Kaabitseja
 - **Eesmärk:** Abstraktne klass, mida coop ja rimi klass extendivad ja mis sisaldab funktsiooni `kaabitse`, mis tagastab ArrayListi toodetest vastavalt otsingusõnele.
@@ -41,10 +39,10 @@ Tulemuseks kuvatakse aknasse kõik kõige odavamad tooted ning kui kasutaja vaju
 
 ### Tegemist eelmise projekti jätkuga. Alguse kohta lugeda eelmise projekti readme failist.
 Jan Markus Salum: 
-
+Selles etapis oli minu ülesandeks teha kasutajaliides toodete otsimiseks, kuvamiseks, faili salvestamiseks. huvitavaim osa minu jaoks oli lisa paneel, mis sarnaste toodete hindu näitab (ja see kuidas see avaneb jne). Kokku kulus umbes 8h.
 
 Andry Avamägi:
-Selles etapis oli minu ülesandeks saada otsingutulemused prisma e-poest. Esimesel korral see meil ei õnnestunud, kuna iga päringuga tagastati meile javascript - sealt oli väga raske / võimatu midagi välja lugeda. Minu ülesandeks oli välja mõelda viis, kuidas see javascript tagaplaanil ära renderida ja tulemusest info välja lugeda. Leidsin sellise teegi Selenium, mis võimaldas täpselt seda - tegemist vist eelkõige veebitestide jaoks kirjutatud teegiga, kuid see sobis minu ülesande jaoks. Tulemusena sain valmis programmi, mis iga funktsiooni välja kutsega avab tagaplaanil chromekliendi, kust kutsutakse välja sobiv päring - nüüd see klient käitub brauserina ja renderdab javascripti ning selle tulemusest  oli väga lihtne otsida välja kõik vajalik info ja salvestada see Toodete klassidena. Kokku kulus mul umbes 6h, kuna Seleniumi rakendamisel ilmnesid errori, millest algul midagi aru ei saanud. 
+Selles etapis oli minu ülesandeks saada otsingutulemused prisma e-poest. Esimesel korral see meil ei õnnestunud, kuna iga päringuga tagastati meile javascript - sealt oli väga raske / võimatu midagi välja lugeda. Minu ülesandeks oli välja mõelda viis, kuidas see javascript tagaplaanil ära renderida ja tulemusest info välja lugeda. Leidsin sellise teegi nagu Selenium, mis võimaldas täpselt seda - tegemist vist eelkõige veebitestide jaoks kirjutatud teegiga, kuid see sobis minu ülesande jaoks. Tulemusena sain valmis programmi, mis iga funktsiooni välja kutsega avab tagaplaanil chromekliendi, kust kutsutakse välja sobiv päring - nüüd see klient käitub brauserina ja renderdab javascripti ning selle tulemusest  oli väga lihtne otsida välja kõik vajalik info ja salvestada see Toodete klassidena. Kokku kulus mul umbes 6h, kuna Seleniumi rakendamisel ilmnesid errori, millest algul midagi aru ei saanud. 
 
 
 
@@ -53,12 +51,10 @@ Projekti kasutajasõbralikuks tööks oli tähtis see, et päringutele saadakse 
 Suuremaks mureks kui asünkroonsus, osutus aga see, et osadel veebipoodidel ei ole aga hindasid/tooteid html lehel, seega saime esialgu tööle ainult Coopi ja Rimi. Näiteks Prisma e-pood näitab toote hinda vaid alles siis, kui oled selle oma korvi lisanud.
 
 ## Hinnang Lõpptulemusele
-Arvame, et lõpuks sai valmis väga äge projekt ning oleme oma tulemusega rahul. Tulevikus on mõistlik see ümber kirjutada veebirakenduseks ning tulemusi otsida ka Selveri veebipoest.
+Arvame, et lõpuks sai valmis väga äge projekt ning oleme oma tulemusega rahul.
 
 ## Testimine
 Peale iga suurema funktsionaalsuse rakendamist, katsetasime klasse, kas kõik osad koos töötavad enne, kui läksime edasi.
 Nt. Tegime coopi kaabitseja -> proovisime kas saame tooted, kus nime sees on otsing. Prisma ja Rimiga samamoodi.
 Tulemused iga otsingu pealt koondasime ühte listi. Sorteerisime. Uurisime kas saime oodatud tulemuse.
-
-
-[//]: # (TODO)
+Proovisime erinevaid tektse panna tektsivälja, erinavaid nupukombinatsioone ning andsime teistele inimestele testimiseks ka.

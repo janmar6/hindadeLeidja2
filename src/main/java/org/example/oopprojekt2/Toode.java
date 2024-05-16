@@ -45,9 +45,9 @@ class Toode implements Comparable<Toode>{
         }
     }
 
-    public void valjastaIlusalt() {
-        String format = "| %-50s | %-5.2f € | %-5.2f €/kg | %-5s |%n";
-        System.out.format(format, name, price, kiloHind, pood);
+    public String valjastaIlusalt() {
+        String format = "%-45s %-5.2f€ %-5.2f€/kg %-6s %n";
+        return String.format(format, name, price, kiloHind, pood);
     }
 
 
