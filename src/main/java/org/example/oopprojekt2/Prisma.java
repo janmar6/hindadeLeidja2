@@ -70,7 +70,7 @@ public class Prisma extends Kaabitseja{
             return tooted;
 
 
-        }  catch (SessionNotCreatedException ignored) {
+        }  catch (SessionNotCreatedException | IllegalStateException ignored) {
             System.out.println("Detected invalid ChromeDriver version for installed version of Chrome");
             return tooted;
         }
