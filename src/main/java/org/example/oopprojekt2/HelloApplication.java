@@ -18,7 +18,6 @@ import java.util.concurrent.ExecutionException;
 
 public class HelloApplication extends Application {
 
-    private boolean isSubResultsListAdded = true;
     private String lastSelectedItem = null;
     private Map<String, List<Toode>> tooted = null;
 
@@ -78,7 +77,6 @@ public class HelloApplication extends Application {
         GridPane.setVgrow(resultsList, Priority.ALWAYS);
         GridPane.setVgrow(subResultsList, Priority.ALWAYS);
 
-        isSubResultsListAdded = false;
 
         Scene scene = new Scene(gridPane, 600, 400);
 
@@ -142,12 +140,10 @@ public class HelloApplication extends Application {
             gridPane.add(resultsList, 0, 1, 1, 1);
             gridPane.add(subResultsList, 1, 1);
             GridPane.setVgrow(subResultsList, Priority.ALWAYS);
-            isSubResultsListAdded = true;
         } else {
             gridPane.getChildren().remove(resultsList);
             gridPane.add(resultsList, 0, 1, 2, 1);
             gridPane.getChildren().remove(subResultsList);
-            isSubResultsListAdded = false;
         }
 
     }

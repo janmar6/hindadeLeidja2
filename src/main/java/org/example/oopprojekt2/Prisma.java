@@ -78,7 +78,7 @@ public class Prisma extends Kaabitseja{
             return tooted;
 
 
-        }  catch (SessionNotCreatedException ignored) {
+        }  catch (SessionNotCreatedException | IllegalStateException ignored) {
             System.out.println("Kasutajal pole viimast chrome versiooni");
             return tooted;
         }
