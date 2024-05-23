@@ -41,21 +41,15 @@ public class HelloApplication extends Application {
         // Event listener for search field
         searchField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
-                String query = searchField.getText().trim();
-                resultsList.getItems().add(query);
-                searchField.clear();
+                addItemToList();
             }
         });
 
         // Event listener for adding button
         addButton.setOnAction(event -> {
-            String query = searchField.getText().trim();
-            if (!query.isEmpty()) {
-                resultsList.getItems().add(query);
-                // Puhasta otsinguväli pärast lisamist
-                searchField.clear();
+                addItemToList();
             }
-        });
+        );
         
 
 
@@ -287,6 +281,14 @@ public class HelloApplication extends Application {
             searchBar.getChildren().remove(addButton);
             searchBar.getChildren().remove(searchButton);
             searchField.setEditable(false);
+        }
+    }
+    private void addItemToList() {
+        String query = searchField.getText().trim();
+        if (!query.isEmpty()) {
+            resultsList.getItems().add(query);
+            // Puhasta otsinguväli pärast lisamist
+            searchField.clear();
         }
     }
 
